@@ -8,16 +8,16 @@ import {
   IoHelpCircleOutline,
 } from "react-icons/io5";
 
-const formatDate = (isoString) => {
-  const date = new Date(isoString);
-  const today = new Date();
-  const isToday = date.toDateString() === today.toDateString();
-  const isYesterday =
-    new Date(Date.now() - 86400000).toDateString() === date.toDateString();
-  if (isToday) return "Today";
-  if (isYesterday) return "Yesterday";
-  return date.toLocaleDateString();
-};
+// const formatDate = (isoString) => {
+//   const date = new Date(isoString);
+//   const today = new Date();
+//   const isToday = date.toDateString() === today.toDateString();
+//   const isYesterday =
+//     new Date(Date.now() - 86400000).toDateString() === date.toDateString();
+//   if (isToday) return "Today";
+//   if (isYesterday) return "Yesterday";
+//   return date.toLocaleDateString();
+// };
 
 const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +62,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
         transform transition-transform duration-300 z-50 ease-in-out 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full pt-2">
           {/* New Chat */}
           <div className="px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
             <button
@@ -70,7 +70,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
                 onNewChat();
                 if (isMobile) setIsOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:hover:bg-blue-500 transition"
+              className="flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md cursor-pointer duration-200 shadow-sm border border-transparent text-white bg-blue-900 dark:bg-blue-900 border-blue-400 dark:border-blue-500 transition"
             >
               <LuMessagesSquare size={18} />
               New Chat
@@ -78,10 +78,10 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
             {isMobile && (
               <button
                 onClick={() => setIsOpen(false)}
-                className="ml-2 text-gray-400 hover:text-white transition"
+                className="ml-2 text-gray-400 hover:text-white transition p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-full"
                 title="Close Sidebar"
               >
-                <RiCloseLargeFill size={20} />
+                <RiCloseLargeFill size={22} />
               </button>
             )}
           </div>
@@ -98,7 +98,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
                     onLoadChat(chat._id);
                     if (isMobile) setIsOpen(false);
                   }}
-                  className={`group p-2 rounded-md cursor-pointer transition-all duration-200 shadow-sm border border-transparent 
+                  className={`group px-2 py-1 rounded-md cursor-pointer transition-all duration-200 shadow-sm border border-transparent 
                   ${
                     chat._id === chatId
                       ? "bg-blue-100 dark:bg-blue-900 border-blue-400 dark:border-blue-500"
@@ -121,7 +121,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
                     </button>
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {formatDate(chat.createdAt)}
+                    {/* {formatDate(chat.createdAt)} */}
                   </div>
                 </div>
               ))
@@ -129,16 +129,16 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
           </div>
 
           {/* Footer Links with Icons */}
-          <div className="mt-auto border-t border-gray-200 dark:border-gray-800 px-4 py-4 text-sm text-gray-600 dark:text-gray-400">
-            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          <div className="mt-auto border-t border-gray-200 dark:border-gray-800 px-2 py-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-800 transition">
               <IoSettingsOutline size={18} />
               <span>Settings</span>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-800 transition">
               <IoBookOutline size={18} />
               <span>Resources</span>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            <div className="flex items-center gap-3 p-2 rounded-md cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-800 transition">
               <IoHelpCircleOutline size={18} />
               <span>Help & FAQ</span>
             </div>

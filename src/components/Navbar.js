@@ -13,7 +13,8 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { TbMenu4 } from "react-icons/tb";
 import ThemeToggle from "./ThemeToggle";
 import { AuthContext } from "../context/AuthContext";
-import GearIcon from "../assets/Gear.png";
+import Logo from "../assets/Logo.svg";
+
 const Navbar = () => {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -46,20 +47,17 @@ const Navbar = () => {
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm sticky top-0 z-50">
       <div className="max-w-8xl mx-auto px-6 sm:px-8 py-3 flex justify-between items-center relative">
-        <Link
-          to="/chat"
-          className="flex items-center gap-2 text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent"
-        >
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-orange-500 shadow-md">
-            <img
-              src={GearIcon}
-              alt="CareerPath AI Logo"
-              className="w-7 h-7 object-contain"
-            />
-          </div>
-          <span className="dark:text-white text-black">
-            careerpath ai
-            <span className="text-orange-500 text-3xl font-extrabold">.</span>
+        <Link to="/chat" className="flex items-center gap-1 sm:gap-1">
+          <img
+            src={Logo}
+            alt="CareerPath AI Logo"
+            className="h-12 sm:h-12 w-auto object-contain align-middle"
+          />
+          <span className="text-lg sm:text-2xl font-extrabold text-black dark:text-white leading-none tracking-tight flex items-baseline">
+            careerpath&nbsp;ai
+            <span className="text-[#D6950A] text-xl sm:text-3xl font-extrabold ml-[1px]">
+              .
+            </span>
           </span>
         </Link>
 
@@ -68,7 +66,7 @@ const Navbar = () => {
           <ThemeToggle />
           <button
             onClick={toggleMenu}
-            className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
+            className="text-gray-600 rounded-full p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
           >
             {isOpen ? (
               <RiCloseLargeFill size={24} />
@@ -84,7 +82,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`text-sm font-medium transition duration-200 ${
+              className={`text-[16px] font-medium transition duration-200 ${
                 pathname === link.to
                   ? "text-blue-600 dark:text-blue-400 underline underline-offset-4"
                   : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -99,7 +97,7 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-1 text-sm font-medium p-2 border border-gray-300 hover:border-gray-500 rounded-full  text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-blue-400"
+                className="flex items-center gap-1 text-sm font-medium p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] hover:bg-gray-200 rounded-full  text-gray-700 dark:text-gray-300 dark:border dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all duration-300"
               >
                 <FaRegCircleUser size={20} />
                 <TbMenu4 size={20} />
@@ -107,20 +105,20 @@ const Navbar = () => {
 
               {/* Animated Dropdown */}
               {dropdownOpen && (
-                <div className="absolute right-0 mt-4 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50 origin-top-right scale-95 animate-dropdown transition-all duration-200 ease-out">
+                <div className="absolute right-0 mt-3 w-52 px-1 bg-white rounded-md dark:bg-gray-800 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] py-3 z-50 origin-top-right animate-dropdown transition-all duration-200 ease-out">
                   <Link
                     to="/dashboard"
-                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="flex items-center gap-2 px-4 py-2 text-[16px] font-medium rounded-xl text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    <LuLayoutDashboard className="text-lg" />
+                    <LuLayoutDashboard size={20} />
                     Dashboard
                   </Link>
 
                   <Link
                     to="/profile"
-                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="flex items-center gap-2 px-4 py-2 text-[16px] font-medium rounded-xl text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    <LuSquareUserRound className="text-lg" />
+                    <LuSquareUserRound size={20} />
                     Profile
                   </Link>
 
@@ -129,9 +127,9 @@ const Navbar = () => {
                       logout();
                       Navigate("/login");
                     }}
-                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900 text-left"
+                    className="flex items-center gap-2 w-full px-4 py-2 text-[16px] font-medium rounded-xl text-red-600 dark:text-red-500 dark:hover:text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-left"
                   >
-                    <AiOutlineLogout className="text-lg" />
+                    <AiOutlineLogout size={20} />
                     Logout
                   </button>
                 </div>
@@ -144,7 +142,7 @@ const Navbar = () => {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 px-4 pb-4">
+        <div className="lg:hidden border-t border-gray-200 dark:border-gray-800 px-4 pb-4 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] animate-dropdown transition-all duration-200 ease-out">
           <div className="flex flex-col space-y-3 pt-3">
             <Link
               to="/chat"

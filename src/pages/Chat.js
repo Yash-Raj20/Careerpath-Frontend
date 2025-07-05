@@ -195,7 +195,7 @@ const Chat = () => {
         ) : (
           <>
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-6 space-y-3 sm:space-y-4 min-h-0">
+            <div className="flex-1 overflow-y-auto px-2 py-4 sm:px-4 sm:py-6 md:px-32 md:py-6 space-y-3 sm:space-y-4 min-h-0">
               {messages.map((msg, i) => (
                 <div key={i} className="w-full">
                   <MessageBubble sender={msg.role} text={msg.content} />
