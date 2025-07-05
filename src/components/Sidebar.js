@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LuMessagesSquare, LuTrash } from "react-icons/lu";
 import { RiCloseLargeFill } from "react-icons/ri";
-import { CgMenuRightAlt } from "react-icons/cg";
+import { MdOutlineNavigateNext } from "react-icons/md";
 import {
   IoSettingsOutline,
   IoBookOutline,
@@ -39,11 +39,11 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
       {/* Mobile Toggle Button */}
       {!isOpen && isMobile && (
         <button
-          className="fixed top-16 left-0 z-[60] border text-white p-1 rounded-md hover:bg-gray-600 transition"
+          className="fixed top-20 left-[-6px] z-[60] bg-slate-400 rounded-r-full text-black transition"
           onClick={() => setIsOpen(true)}
           aria-label="Open Sidebar"
         >
-          <CgMenuRightAlt size={24} />
+          <MdOutlineNavigateNext  size={28} />
         </button>
       )}
 
