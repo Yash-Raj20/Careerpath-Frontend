@@ -20,7 +20,7 @@ export default function TreePhaseVisual({ phases = [] }) {
     "from-yellow-500 via-amber-500 to-orange-500",
     "from-indigo-500 via-blue-500 to-purple-500",
     "from-pink-500 via-purple-500 to-indigo-500",
-    "from-teal-500 via-cyan-500 to-blue-500"
+    "from-teal-500 via-cyan-500 to-blue-500",
   ];
 
   const toggleExpanded = (index) => {
@@ -37,7 +37,7 @@ export default function TreePhaseVisual({ phases = [] }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-4">
             Roadmap Timeline
@@ -48,32 +48,50 @@ export default function TreePhaseVisual({ phases = [] }) {
         </div>
 
         <div className="relative">
-          <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-400 via-pink-400 to-blue-400 rounded-full opacity-60"></div>
+          {/* Timeline line for large screen */}
+          <div className="hidden lg:block absolute inset-y-0 left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-400 via-pink-400 to-blue-400 rounded-full opacity-60"></div>
 
-          <div className="space-y-8 sm:space-y-12">
+          <div className="space-y-12">
             {phases.map((phase, index) => {
               const color = phaseColors[index % phaseColors.length];
               const isExpanded = expandedPhases.has(index);
               const hasChildren = phase.children?.length > 0;
+              const isLeft = index % 2 === 0;
 
               return (
-                <div key={index} className="relative group">
-                  <div className="absolute left-0 sm:left-2 top-6 sm:top-8 z-20">
+                <div
+                  key={index}
+                  className={`relative flex flex-col lg:flex-row ${
+                    isLeft ? "lg:justify-start" : "lg:justify-end"
+                  }`}
+                >
+                  {/* Dot and line */}
+                  <div
+                    className={`absolute top-6 lg:top-12 ${
+                      isLeft ? "lg:left-[calc(50%-1rem)]" : "lg:left-[calc(50%-1rem)]"
+                    } z-20`}
+                  >
                     <div className="relative">
-                      <div className={`absolute inset-0 w-8 h-8 bg-gradient-to-r ${color} rounded-full blur-md opacity-60 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                      <div
+                        className={`absolute inset-0 w-8 h-8 bg-gradient-to-r ${color} rounded-full blur-md opacity-60`}
+                      ></div>
                       <button
                         onClick={() => toggleCompleted(index)}
-                        className={`relative w-8 h-8 bg-gradient-to-br ${color} border-4 border-white dark:border-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 flex items-center justify-center`}
+                        className={`relative w-8 h-8 bg-gradient-to-br ${color} border-4 border-white dark:border-gray-900 rounded-full shadow-lg flex items-center justify-center`}
                       >
                         <FaRegCircle className="w-4 h-4 text-white" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="ml-12 sm:ml-16">
+                  {/* Phase box */}
+                  <div
+                    className={`mt-12 lg:mt-0 lg:w-1/2 ${
+                      isLeft ? "lg:pr-12" : "lg:pl-12"
+                    }`}
+                  >
                     <div
-                      className={`relative bg-gradient-to-br ${color} p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-1 hover:scale-[1.02] backdrop-blur-sm border border-white/20 overflow-hidden`}
-                      style={{ background: `linear-gradient(135deg, var(--tw-gradient-stops))` }}
+                      className={`relative bg-gradient-to-br ${color} p-6 sm:p-8 rounded-2xl shadow-xl transition duration-500 backdrop-blur-sm border border-white/20`}
                     >
                       <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl transform translate-x-16 -translate-y-16"></div>
                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl transform -translate-x-12 translate-y-12"></div>
@@ -117,12 +135,21 @@ export default function TreePhaseVisual({ phases = [] }) {
                       )}
 
                       {hasChildren && (
-                        <div className={`transition-all duration-500 ease-out ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+                        <div
+                          className={`transition-all duration-500 ease-out ${
+                            isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                          } overflow-hidden`}
+                        >
                           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6 mt-4 border border-white/20">
-                            <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">Subtasks:</h4>
+                            <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">
+                              Subtasks:
+                            </h4>
                             <div className="grid gap-3 sm:gap-4">
                               {phase.children.map((child, i) => (
-                                <div key={i} className="flex items-start gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                                <div
+                                  key={i}
+                                  className="flex items-start gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+                                >
                                   <div className="w-2 h-2 bg-white/60 rounded-full mt-2"></div>
                                   <div className="flex-1">
                                     <span className="text-white font-medium text-sm sm:text-base">

@@ -57,7 +57,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
 
       {/* Sidebar Panel */}
       <div
-        className={`fixed md:relative top-[64px] md:top-0 left-0 h-[calc(100vh-64px)] md:h-full w-64 
+        className={`fixed md:relative top-[64px] md:top-0 left-0 h-[calc(100vh-64px)] md:h-full w-60
         bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 
         transform transition-transform duration-300 z-50 ease-in-out 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
@@ -70,6 +70,7 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
                 onNewChat();
                 if (isMobile) setIsOpen(false);
               }}
+              name="New Chat"
               className="flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md cursor-pointer duration-200 shadow-sm border border-transparent text-white bg-blue-900 dark:bg-blue-900 border-blue-400 dark:border-blue-500 transition"
             >
               <LuMessagesSquare size={18} />

@@ -11,6 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { AuthContext } from "../context/AuthContext";
+import { FaChartBar, FaRegFileAlt, FaBullseye } from "react-icons/fa";
+import { BsClockHistory } from "react-icons/bs";
 
 const Dashboard = () => {
   const { user, authLoading } = useContext(AuthContext);
@@ -21,11 +23,9 @@ const Dashboard = () => {
     lastResumeUploaded: false,
     lastCourseGoal: "",
   });
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch dashboard data
   useEffect(() => {
     if (authLoading) return;
     if (!user) return navigate("/login");
@@ -69,87 +69,101 @@ const Dashboard = () => {
 
   if (authLoading || loading) {
     return (
-      <div className="p-6 text-center text-gray-500 dark:text-gray-400">
-        Loading dashboard...
+      <div className="min-h-screen flex items-center justify-center text-gray-500 dark:text-gray-400">
+        Loading your dashboard...
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-6 text-center text-red-500 dark:text-red-400">
+      <div className="min-h-screen flex items-center justify-center text-red-500 dark:text-red-400">
         {error}
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 space-y-8">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-        📊 Dashboard Insights
-      </h2>
-
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <div className="p-4 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700 shadow-sm">
-          <h3 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">
-            🧠 Last Interview Role
-          </h3>
-          <p className="text-gray-800 dark:text-white">
-            {data.interviewHistory.length > 0
-              ? data.interviewHistory.slice(-1)[0]
-              : "No interviews yet"}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 px-4 py-8 sm:px-6 lg:px-12 text-gray-800 dark:text-gray-100">
+      <div className="max-w-6xl mx-auto space-y-10">
+        <div className="text-center">
+          <h2 className="text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-2 flex items-center justify-center gap-3">
+            <FaChartBar size={32} /> Dashboard Insights
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
+            Get a quick overview of your AI interview progress and career goals.
           </p>
         </div>
 
-        <div className="p-4 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700 shadow-sm">
-          <h3 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">
-            📄 Resume Uploaded
-          </h3>
-          <p className="text-gray-800 dark:text-white">
-            {data.lastResumeUploaded ? "✅ Yes" : "❌ No"}
-          </p>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 mb-3 text-blue-600 dark:text-blue-300">
+              <BsClockHistory size={24} />
+              <h3 className="text-xl font-semibold">Last Interview Role</h3>
+            </div>
+            <p className="text-lg font-medium">
+              {data.interviewHistory.length > 0
+                ? data.interviewHistory.slice(-1)[0]
+                : "No interviews yet"}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 mb-3 text-green-600 dark:text-green-300">
+              <FaRegFileAlt size={24} />
+              <h3 className="text-xl font-semibold">Resume Uploaded</h3>
+            </div>
+            <p className="text-lg font-medium">
+              {data.lastResumeUploaded ? "✅ Yes" : "❌ No"}
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 mb-3 text-purple-600 dark:text-purple-300">
+              <FaBullseye size={24} />
+              <h3 className="text-xl font-semibold">Career Goal</h3>
+            </div>
+            <p className="text-lg font-medium">
+              {data.lastCourseGoal || "No goal set yet"}
+            </p>
+          </div>
         </div>
 
-        <div className="p-4 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700 shadow-sm">
-          <h3 className="font-semibold mb-2 text-gray-700 dark:text-gray-300">
-            🎯 Career Goal
-          </h3>
-          <p className="text-gray-800 dark:text-white">
-            {data.lastCourseGoal || "No course goal yet"}
-          </p>
-        </div>
+        {chartData.length > 0 && (
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
+            <h3 className="text-2xl font-semibold text-center mb-6 text-indigo-600 dark:text-indigo-400">
+              📈 Interview Attempts by Role
+            </h3>
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart
+                data={chartData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke={chartData.length ? "#ccc" : "#999"}
+                  strokeOpacity={0.2}
+                />
+                <XAxis
+                  dataKey="role"
+                  stroke="#8884d8"
+                  tick={{ fill: "#4B5563", fontSize: 14 }}
+                />
+                <YAxis stroke="#8884d8" tick={{ fill: "#4B5563", fontSize: 14 }} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1f2937",
+                    border: "none",
+                    borderRadius: 8,
+                    color: "#fff",
+                  }}
+                />
+                <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
-
-      {chartData.length > 0 && (
-        <div className="p-4 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700 shadow-sm">
-          <h3 className="font-semibold mb-4 text-gray-700 dark:text-gray-300">
-            📈 Interview Attempts by Role
-          </h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={chartData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-              <XAxis
-                dataKey="role"
-                stroke="#8884d8"
-                tick={{ fill: "#4B5563" }}
-              />
-              <YAxis stroke="#8884d8" tick={{ fill: "#4B5563" }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1f2937",
-                  border: "none",
-                  borderRadius: 8,
-                  color: "#fff",
-                }}
-              />
-              <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      )}
     </div>
   );
 };

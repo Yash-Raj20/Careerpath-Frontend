@@ -51,7 +51,7 @@ const Navbar = () => {
           <img
             src={Logo}
             alt="CareerPath AI Logo"
-            className="h-12 sm:h-12 w-auto object-contain align-middle"
+            className="h-10 sm:h-10 w-auto object-contain align-middle"
           />
           <span className="text-lg sm:text-2xl font-extrabold text-black dark:text-white leading-none tracking-tight flex items-baseline">
             careerpath&nbsp;ai

@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "../api/axios";
 import { toast } from "react-toastify";
+import { IoSparklesOutline } from "react-icons/io5";
+import { FaRegMessage } from "react-icons/fa6";
+import { FaAward, FaMicrophone, FaPaperPlane, FaPlay } from "react-icons/fa";
 
 export default function MockInterview() {
   const [role, setRole] = useState("");
@@ -30,7 +33,8 @@ export default function MockInterview() {
 
   // 🎤 Voice Input
   const recordVoice = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return alert("Speech recognition not supported");
 
     const recognition = new SpeechRecognition();
@@ -53,7 +57,10 @@ export default function MockInterview() {
   };
 
   useEffect(() => {
-    chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
+    chatRef.current?.scrollTo({
+      top: chatRef.current.scrollHeight,
+      behavior: "smooth",
+    });
   }, [messages]);
 
   const handleStart = async () => {
@@ -99,7 +106,10 @@ export default function MockInterview() {
     }
 
     // Typing...
-    setMessages((prev) => [...prev, { type: "ai", text: "💬 AI is typing...", isTyping: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { type: "ai", text: "💬 AI is typing...", isTyping: true },
+    ]);
 
     let feedback = "Unable to evaluate your answer.";
     try {
@@ -121,7 +131,8 @@ export default function MockInterview() {
 
     speakText(`Feedback: ${feedback}`, () => {
       const isWrong =
-        feedback.toLowerCase().includes("incorrect") || feedback.toLowerCase().includes("wrong");
+        feedback.toLowerCase().includes("incorrect") ||
+        feedback.toLowerCase().includes("wrong");
 
       if (isWrong) {
         const retry = `Let's try again: ${q}`;
@@ -149,97 +160,201 @@ export default function MockInterview() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 text-gray-800 dark:text-white">
-      <h2 className="text-3xl font-bold text-center mb-6">
-        🎙️ AI Mock Interview
-      </h2>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-100 to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
+      <main className="flex-grow flex items-center justify-center px-4 py-6">
+        <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 flex flex-col gap-6 border border-gray-200 dark:border-gray-700 ">
+          <h2 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-4 flex items-center justify-center gap-3">
+            <IoSparklesOutline size={36} className="text-yellow-500" /> AI Mock
+            Interview
+          </h2>
 
-      {/* Form */}
-      <div className="flex flex-col sm:flex-row gap-3 items-center mb-4">
-        <input
-          type="text"
-          placeholder="e.g., Frontend Developer"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="flex-1 p-2 border rounded dark:bg-gray-900 dark:border-gray-600"
-        />
-        <select
-          value={level}
-          onChange={(e) => setLevel(e.target.value)}
-          className="p-2 border rounded dark:bg-gray-900 dark:border-gray-600"
-        >
-          <option>Beginner</option>
-          <option>Intermediate</option>
-          <option>Advanced</option>
-        </select>
-        <button
-          onClick={handleStart}
-          disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          {loading ? "Starting..." : "Start"}
-        </button>
-      </div>
-
-      {/* 💬 Chat Box */}
-      <div
-        ref={chatRef}
-        className="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow max-h-[400px] overflow-y-auto space-y-3"
-      >
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
-          >
-            <div
-              className={`px-4 py-2 rounded-xl max-w-[75%] text-sm ${
-                msg.type === "user"
-                  ? "bg-green-100 dark:bg-green-900 text-right"
-                  : "bg-blue-100 dark:bg-blue-900 text-left"
-              }`}
-            >
-              {msg.text}
+          {/* Form */}
+          <div className="flex flex-col md:flex-row gap-4 items-center mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner">
+            <div className="flex-1 w-full">
+              <label htmlFor="role-input" className="sr-only">
+                Role
+              </label>
+              <input
+                type="text"
+                id="role-input"
+                placeholder="e.g., Frontend Developer"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+              />
             </div>
+            <div className="w-full md:w-auto">
+              <label htmlFor="level-select" className="sr-only">
+                Experience Level
+              </label>
+              <select
+                id="level-select"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 transition-colors duration-200"
+              >
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+            <button
+              onClick={handleStart}
+              disabled={loading}
+              className="w-full md:w-auto bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Starting...
+                </>
+              ) : (
+                <>
+                  <FaPlay size={20} /> Start Interview
+                </>
+              )}
+            </button>
           </div>
-        ))}
-      </div>
 
-      {/* 📝 Answer Input */}
-      {questions.length > 0 && currentQ < questions.length && (
-        <>
-          <textarea
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            rows={3}
-            placeholder="✍️ Type or speak your answer..."
-            className="w-full mt-4 p-3 border rounded dark:bg-gray-900 dark:border-gray-600"
-          />
-          <div className="flex gap-3 mt-2">
-            <button
-              onClick={recordVoice}
-              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
-            >
-              🎤 Speak
-            </button>
-            <button
-              onClick={() => {
-                const lower = userInput.trim().toLowerCase();
-                if (lower === "skip" || lower === "next") {
-                  handleNext("skip");
-                } else {
-                  handleNext();
-                }
-              }}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-            >
-              {currentQ < questions.length - 1 ? "Submit" : "Finish"}
-            </button>
+          {/* 💬 Chat Box */}
+          <div
+            ref={chatRef}
+            className="bg-gray-100 dark:bg-gray-700 p-5 rounded-2xl shadow-inner max-h-[500px] overflow-y-auto space-y-4 border border-gray-200 dark:border-gray-600 custom-scrollbar"
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(156, 163, 175, 0.5) transparent",
+            }}
+          >
+            {messages.length === 0 && !loading && (
+              <div className="text-center text-gray-500 dark:text-gray-400 py-10">
+                <FaRegMessage size={48} className="mx-auto mb-3" />
+                <p className="text-lg">Your interview will appear here.</p>
+                <p>Enter a role and click "Start Interview" to begin!</p>
+              </div>
+            )}
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`flex ${
+                  msg.type === "user" ? "justify-end" : "justify-start"
+                } animate-fade-in`}
+              >
+                <div
+                  className={`px-5 py-3 rounded-3xl max-w-[85%] text-base shadow-md ${
+                    msg.type === "user"
+                      ? "bg-blue-500 text-white rounded-br-none"
+                      : "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-bl-none"
+                  } ${msg.isTyping ? "animate-pulse" : ""}`}
+                >
+                  {msg.text}
+                </div>
+              </div>
+            ))}
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 italic">
-            💡 Tip: You can type or say <strong>"skip"</strong> or <strong>"next"</strong> to move to the next question.
-          </p>
-        </>
-      )}
+
+          {/* 📝 Answer Input */}
+          {questions.length > 0 && currentQ < questions.length && (
+            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-600">
+              <textarea
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                rows={4}
+                placeholder="✍️ Type or speak your answer here..."
+                className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 resize-y transition-colors duration-200 mb-3"
+              />
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={recordVoice}
+                  className="flex-1 bg-gradient-to-r from-purple-500 to-purple-700 text-white px-6 py-3 rounded-lg shadow-md hover:from-purple-600 hover:to-purple-800 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <FaMicrophone size={20} /> Speak
+                </button>
+                <button
+                  onClick={() => {
+                    const lower = userInput.trim().toLowerCase();
+                    if (lower === "skip" || lower === "next") {
+                      handleNext("skip");
+                    } else {
+                      handleNext();
+                    }
+                  }}
+                  className="flex-1 bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-3 rounded-lg shadow-md hover:from-green-600 hover:to-green-800 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <FaPaperPlane size={20} />{" "}
+                  {currentQ < questions.length - 1
+                    ? "Submit Answer"
+                    : "Finish Interview"}
+                </button>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 text-center italic">
+                💡 Tip: You can type or say{" "}
+                <strong className="font-semibold text-blue-500 dark:text-blue-300">
+                  "skip"
+                </strong>{" "}
+                or{" "}
+                <strong className="font-semibold text-blue-500 dark:text-blue-300">
+                  "next"
+                </strong>{" "}
+                to move to the next question.
+              </p>
+            </div>
+          )}
+
+          {/* Interview Completed Message */}
+          {questions.length > 0 && currentQ >= questions.length && (
+            <div className="mt-6 p-6 bg-green-100 dark:bg-green-800 rounded-2xl shadow-lg text-center border border-green-200 dark:border-green-700 animate-fade-in-up">
+              <FaAward
+                size={64}
+                className="mx-auto mb-4 text-green-600 dark:text-green-300"
+              />
+              <h3 className="text-2xl font-bold text-green-700 dark:text-green-200 mb-2">
+                Interview Completed!
+              </h3>
+              <p className="text-lg text-gray-700 dark:text-gray-200">
+                Congratulations on completing your mock interview. You did
+                great!
+              </p>
+              <button
+                onClick={() => {
+                  setRole("");
+                  setLevel("Beginner");
+                  setMessages([]);
+                  setQuestions([]);
+                  setCurrentQ(0);
+                  setUserInput("");
+                }}
+                className="mt-6 bg-gradient-to-r from-teal-500 to-teal-700 text-white px-8 py-3 rounded-full shadow-lg hover:from-teal-600 hover:to-teal-800 transition-all duration-300 transform hover:scale-105"
+              >
+                Start New Interview
+              </button>
+            </div>
+          )}
+        </div>
+      </main>
+      <footer className="bg-white/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700 text-center py-6 text-sm text-gray-600 dark:text-gray-400">
+        © {new Date().getFullYear()}{" "}
+        <strong className="text-gray-900 dark:text-white">CareerPath AI</strong>{" "}
+        — All rights reserved.
+      </footer>
     </div>
   );
 }
