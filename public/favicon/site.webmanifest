@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Careerpath AI",
+  "short_name": "CPath AI",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,6 +16,6 @@
     }
   ],
   "theme_color": "#0541af",
-  "background_color": "#0541af",
+  "background_color": "#fbffb5",
   "display": "standalone"
 }
