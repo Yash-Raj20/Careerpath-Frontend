@@ -350,11 +350,6 @@ export default function MockInterview() {
           )}
         </div>
       </main>
-      <footer className="bg-white/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700 text-center py-6 text-sm text-gray-600 dark:text-gray-400">
-        © {new Date().getFullYear()}{" "}
-        <strong className="text-gray-900 dark:text-white">CareerPath AI</strong>{" "}
-        — All rights reserved.
-      </footer>
     </div>
   );
 }

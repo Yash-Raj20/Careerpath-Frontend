@@ -157,7 +157,7 @@ const Chat = () => {
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-xs sm:max-w-md lg:max-w-lg mx-auto px-2 leading-relaxed">
                 Ask me anything about web dev, programming, jobs, or life. I'm
-                here to help — like ChatGPT, but with a career twist!
+                here to help — like ChatBot, but with a career twist!
               </p>
             </div>
 

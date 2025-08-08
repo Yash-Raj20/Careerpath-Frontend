@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Path from "../assets/Logo Start.png";
-import Logo from "../assets/Careerpath Logo.png";
 import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -33,15 +32,19 @@ const Register = () => {
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-16">
         <div className="w-full max-w-md space-y-6">
           {/* Logo */}
-          <div className="flex justify-center">
-            <img src={Logo} alt="CareerPath AI" className="w-60 h-20 object-contain" />
+          <div className="flex items-center justify-center space-x-2">
+            <span className="mt-5 text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Create Your Account on CareerPath AI 
+            </span>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Full Name
+              </label>
               <div className="flex items-center mt-1 border rounded-lg px-3 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600">
                 <FaUser className="text-gray-400" />
                 <input
@@ -59,7 +62,9 @@ const Register = () => {
 
             {/* Email */}
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Email
+              </label>
               <div className="flex items-center mt-1 border rounded-lg px-3 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600">
                 <HiOutlineMail className="text-gray-400" />
                 <input
@@ -77,7 +82,9 @@ const Register = () => {
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Password
+              </label>
               <div className="flex items-center mt-1 border rounded-lg px-3 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600">
                 <HiOutlineLockClosed className="text-gray-400" />
                 <input
@@ -89,11 +96,15 @@ const Register = () => {
                   placeholder="Create a strong password"
                 />
               </div>
-              <p className="mt-1 text-xs text-gray-400">Password must be at least 8 characters long.</p>
+              <p className="mt-1 text-xs text-gray-400">
+                Password must be at least 8 characters long.
+              </p>
             </div>
 
             {/* Error */}
-            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+            {error && (
+              <div className="text-red-500 text-sm text-center">{error}</div>
+            )}
 
             {/* Submit */}
             <button
@@ -107,7 +118,10 @@ const Register = () => {
           {/* Link to Login */}
           <p className="text-sm text-center text-gray-600 dark:text-gray-400 mt-4">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 hover:underline font-medium">
+            <Link
+              to="/login"
+              className="text-blue-600 hover:underline font-medium"
+            >
               Login
             </Link>
           </p>

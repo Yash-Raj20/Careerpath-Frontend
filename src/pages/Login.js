@@ -6,7 +6,6 @@ import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 import { FaFacebookF, FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Path from "../assets/Logo Start.png";
-import Logo from "../assets/Careerpath Logo.png";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -41,12 +40,10 @@ const Login = () => {
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-16">
         <div className="w-full max-w-md space-y-6">
           {/* Logo */}
-          <div className="flex justify-center">
-            <img
-              src={Logo}
-              alt="CareerPath AI"
-              className="w-60 h-20 object-contain"
-            />
+          <div className="flex items-center justify-center space-x-2">
+            <span className="mt-5 text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Welcome back to CareerPath AI
+            </span>
           </div>
 
           {/* Login Form */}

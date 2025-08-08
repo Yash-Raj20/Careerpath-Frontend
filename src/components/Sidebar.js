@@ -57,9 +57,9 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
 
       {/* Sidebar Panel */}
       <div
-        className={`fixed md:relative top-[64px] md:top-0 left-0 h-[calc(100vh-64px)] md:h-full w-60
-        bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 
-        transform transition-transform duration-300 z-50 ease-in-out 
+        className={`fixed md:relative top-[65px] md:top-0 left-0 h-[calc(100vh-65px)] md:h-full w-60
+        bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 
+        transform transition-transform duration-300 z-20 ease-in-out 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         <div className="flex flex-col h-full pt-2">
@@ -89,6 +89,9 @@ const Sidebar = ({ chatList, chatId, onLoadChat, onDeleteChat, onNewChat }) => {
 
           {/* Chat List */}
           <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2">
+            <h2 className="text-gray-800 dark:text-gray-300 text-sm font-semibold mb-3">
+              Chat History
+            </h2>
             {chatList.length === 0 ? (
               <p className="text-gray-500 dark:text-gray-400 text-sm">No chats yet</p>
             ) : (
