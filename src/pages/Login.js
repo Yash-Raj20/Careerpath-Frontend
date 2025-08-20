@@ -17,7 +17,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (user) navigate("/chat");
+    if (user) navigate("/");
   }, [user, navigate]);
 
   const handleSubmit = async (e) => {
