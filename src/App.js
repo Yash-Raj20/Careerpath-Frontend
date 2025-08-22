@@ -22,7 +22,7 @@ const App = () => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col">
       {/* Toast */}
       <ToastContainer
         position="top-right"
@@ -30,14 +30,9 @@ const App = () => {
         pauseOnHover
         theme="colored"
       />
-
-      {/* Navbar (show always) */}
-      <div className="fixed top-0 left-0 right-0 z-50">
         <Navbar />
-      </div>
-
       {/* Main content */}
-      <div className="pt-[64px] flex-1">
+      <div className="bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 pt-[64px] flex-1">
         <Routes>
           {/* Default redirect to /home */}
           <Route path="/" element={<Navigate to="/home" replace />} />

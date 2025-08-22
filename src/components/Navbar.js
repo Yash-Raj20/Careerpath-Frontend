@@ -11,9 +11,9 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { TbMenu4, TbMessageChatbot } from "react-icons/tb";
 import { TiHomeOutline } from "react-icons/ti";
 import { MdOutlineSpatialAudioOff } from "react-icons/md";
-import ThemeToggle from "./ThemeToggle";
 import { AuthContext } from "../context/AuthContext";
-import { FiCpu as FiBrain, FiBookOpen } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { SunSnow } from "lucide-react";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -51,18 +51,18 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 bg-white/70 dark:bg-gray-900/60 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <nav className="fixed top-0 inset-x-0 z-50 bg-white/10 backdrop-blur-md border-b-2 border-white/20 text-white font-semibold text-lg rounded-b-xl">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-[4.5rem]">
           {/* Left: Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-              <FiBrain className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <Link to="/home" className="group relative flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 cursor-pointer">
+            {/* Glow Background on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 -z-10"></div>
+            <SunSnow className="h-12 w-12 text-white group-hover:animate-pulse" />
+            <span className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
               CareerPath AI
             </span>
-          </div>
+          </Link>
 
           {/* Center: Desktop nav links */}
           <div className="hidden lg:flex items-center space-x-8">
@@ -72,8 +72,8 @@ const Navbar = () => {
                 to={item.to}
                 className={`text-md font-medium transition-colors ${
                   pathname === item.to
-                    ? "text-purple-600 dark:text-purple-400"
-                    : "text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
+                    ? "bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent"
+                    : "text-gray-300 hover:bg-gradient-to-r hover:from-emerald-400 hover:to-teal-400 hover:bg-clip-text hover:text-transparent"
                 }`}
               >
                 {item.label}
@@ -83,8 +83,6 @@ const Navbar = () => {
 
           {/* Right: Theme + Auth + Hamburger */}
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
-
             {/* Desktop: Auth */}
             {user ? (
               <div className="hidden lg:block relative" ref={dropdownRef}>
@@ -134,7 +132,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="hidden lg:inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all"
+                className="hidden lg:inline-block text-white px-5 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transition-all"
               >
                 Get Started
               </Link>

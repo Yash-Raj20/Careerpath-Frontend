@@ -117,11 +117,23 @@ const Courses = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 overflow-hidden">
       {/* Background Effects */}
+      <div className="absolute inset-0 opacity-8">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.3) 1px, transparent 0)",
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
+      </div>
+
+      {/* Floating Audio Waves Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-pink-400 to-indigo-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gradient-to-r from-amber-500/12 to-orange-500/12 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-56 h-56 bg-gradient-to-r from-rose-500/8 to-pink-500/8 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
       <div className="relative">
